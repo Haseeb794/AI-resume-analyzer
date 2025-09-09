@@ -56,12 +56,12 @@ export const Upload = () => {
 
         if (!feedback) return setStatusText("Failed to analyze resume.");
 
+        console.log({ feedback });
         const feedbackText = typeof feedback.message.content === 'string' ? feedback.message.content : feedback.message.content[0].text;
-
         data.feedback = JSON.parse(feedbackText);
         await kv.set(`resume:${uuid}`, JSON.stringify(data));
         setStatusText("Analysis complete!");
-        console.log(data);
+        navigate(`/resume/${uuid}`);
     }
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
